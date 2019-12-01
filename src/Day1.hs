@@ -3,22 +3,15 @@ module Day1
   )
 where
 
-import           Data.Maybe                     ( mapMaybe )
-import qualified Data.Set                      as Set
 import           Text.Read                      ( readMaybe )
 
 solve :: IO (Maybe Int)
 solve = do
-  inp <- cycle . mapMaybe readNum . lines <$> readFile "data/day1.txt"
-  return $ firstDup 0 Set.empty inp
- where
-  readNum :: String -> Maybe Int
-  readNum ('+' : xs) = readMaybe xs
-  readNum str        = readMaybe str
+  l <- lines <$> readFile "data/day1.txt"
+  pure $ fmap sum . sequence $ fmap fuel . readMaybe <$> l
 
-  firstDup :: Int -> Set.Set Int -> [Int] -> Maybe Int
-  firstDup _ _ [] = Nothing
-  firstDup freq prev (x : xs)
-    | Set.member freq prev = Just freq
-    | otherwise            = firstDup (freq + x) (Set.insert freq prev) xs
+fuel :: Int -> Int
+fuel n | f > 0     = f + fuel f
+       | otherwise = 0
+  where f = (n `div` 3) - 2
 
