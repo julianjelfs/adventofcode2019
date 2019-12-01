@@ -5,6 +5,12 @@ import           Text.ParserCombinators.Parsec  ( ParseError
                                                 , Parser
                                                 )
 
+mapLines :: (String -> a) -> FilePath -> IO [a]
+mapLines f p = fmap f . lines <$> readFile p
+
+readLines :: FilePath -> IO [String]
+readLines p = lines <$> readFile p
+
 numberParser :: Parsec String st Int
 numberParser = rd <$> (plus <|> minus <|> number)
  where

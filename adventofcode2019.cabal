@@ -43,3 +43,17 @@ executable adventofcode2019
                       , hspec
                       , mtl
                       , array
+  default-extensions:  DataKinds
+                     , DeriveGeneric
+                     , NamedFieldPuns
+                     , OverloadedStrings
+                     , TemplateHaskell
+                     , TypeOperators
+                     , RecordWildCards
+                     , LambdaCase
+                     , FlexibleContexts
+                     , ViewPatterns
+                     , MultiParamTypeClasses
+                     , TypeSynonymInstances
+                     , FlexibleInstances
+                     , DuplicateRecordFields
