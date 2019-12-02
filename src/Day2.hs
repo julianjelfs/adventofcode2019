@@ -1,5 +1,6 @@
 module Day2
-  ( solve
+  ( partOne
+  , partTwo
   , toVector
   , processInstructions
   , updateVector
@@ -9,10 +10,27 @@ where
 import           Data.List.Split                ( splitOn )
 import           Data.Vector                   as V
 
-solve :: IO Int
-solve = do
-  v <- toVector <$> readFile "data/day2.txt"
+input :: IO (V.Vector Int)
+input = toVector <$> readFile "data/day2.txt"
+
+combos :: [(Int, Int)]
+combos = [ (n, v) | n <- [0 .. 99], v <- [0 .. 99] ]
+
+partOne :: IO Int
+partOne = do
+  v <- input
   pure $ processInstructions (v // [(1, 12), (2, 2)])
+
+partTwo :: IO Int
+partTwo = do
+  v <- input
+  pure $ go v combos
+ where
+  go _ [] = error "ran out of combinations"
+  go v ((noun, verb) : c) =
+    case processInstructions (v // [(1, noun), (2, verb)]) of
+      19690720 -> 100 * noun + verb
+      _        -> go v c
 
 processInstructions :: V.Vector Int -> Int
 processInstructions v = go v 0
