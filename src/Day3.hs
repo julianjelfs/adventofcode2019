@@ -25,7 +25,8 @@ partTwo = do
       c                = combinedSteps one two ints
   pure $ S.lookupMin c
 
-intersection _ = S.empty
+intersection [a, b] = S.intersection a b
+intersection _      = S.empty
 
 combinedSteps one two = S.map (\c -> stepsTo 1 c one + stepsTo 1 c two)
 
