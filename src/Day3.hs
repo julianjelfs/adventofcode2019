@@ -12,9 +12,7 @@ input = do
   pure $ toInstructions <$> l
 
 partOne :: IO (Maybe Int)
-partOne = do
-  v <- input
-  solve v
+partOne = solve =<< input
  where
   solve = pure . S.lookupMin . S.map manhattanDistance . intersection . fmap
     (path (0, 0) S.empty)
