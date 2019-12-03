@@ -14,9 +14,10 @@ input = do
 partOne :: IO (Maybe Int)
 partOne = do
   v <- input
-  pure $ S.lookupMin $ S.map manhattanDistance $ intersection $ fmap
+  solve v
+ where
+  solve = pure . S.lookupMin . S.map manhattanDistance . intersection . fmap
     (path (0, 0) S.empty)
-    v
 
 intersection :: [Set (Int, Int)] -> Set (Int, Int)
 intersection [a, b] = S.intersection a b
