@@ -12,9 +12,9 @@ input = do
   pure $ toInstructions <$> l
 
 partOne :: IO (Maybe Int)
-partOne = solve =<< input
+partOne = solve <$> input
  where
-  solve = pure . S.lookupMin . S.map manhattanDistance . intersection . fmap
+  solve = S.lookupMin . S.map manhattanDistance . intersection . fmap
     (path (0, 0) S.empty)
 
 intersection :: [Set (Int, Int)] -> Set (Int, Int)
