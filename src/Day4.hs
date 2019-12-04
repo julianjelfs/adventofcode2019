@@ -3,11 +3,8 @@ module Day4 where
 import           Data.Char                      ( digitToInt )
 import           Data.List                      ( group )
 
-puzzleRange :: [Int]
-puzzleRange = [284639 .. 748759]
-
 solve :: Int
-solve = length (filter meetsCriteria puzzleRange)
+solve = length (filter meetsCriteria [284639 .. 748759])
 
 meetsCriteria :: Int -> Bool
 meetsCriteria n = containsPair n && not (decreasing n)
