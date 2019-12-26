@@ -1,24 +1,19 @@
 module Day4 where
 
 import           Data.Char                      ( digitToInt )
+import           Data.List                      ( group )
 
-puzzleRange :: [Int]
-puzzleRange = [284639 .. 748759]
-
-partOne :: Int
-partOne = length (filter meetsCriteria puzzleRange)
+solve :: Int
+solve = length (filter meetsCriteria [284639 .. 748759])
 
 meetsCriteria :: Int -> Bool
 meetsCriteria n = containsPair n && not (decreasing n)
 
 containsPair :: Int -> Bool
-containsPair n = dup Nothing str
+containsPair n = any pair grouped
  where
-  dup _       []      = False
-  dup Nothing (c : r) = dup (Just c) r
-  dup (Just p) (c : r) | c == p    = True
-                       | otherwise = dup (Just c) r
-  str = show n
+  grouped = group $ show n
+  pair g = length g == 2
 
 decreasing :: Int -> Bool
 decreasing n = go Nothing str
